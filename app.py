@@ -28,4 +28,4 @@ def sendmail():
     # Send an HTTP POST request to /mail/send
     sg.client.mail.send.post(request_body=mail_json)
 
-    return redirect('https://market.devs.bz', code=302, Response=None)
+    return redirect('/', code=302, Response=None)
