@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template
 import sendgrid
 from sendgrid.helpers.mail import Mail, Email, To, Content
+import os
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ def index():
 @app.route('/sendmail', methods=['POST'])
 def sendmail():
     sg = sendgrid.SendGridAPIClient(
-        api_key='<here comes the key>')
+        api_key=os.environ['SGKEY'])
     from_email = Email("bot@fedtech.ca")
     to_email = To("sales@fedtech.ca")
     subject = "New lead for Farm Market portal"
