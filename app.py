@@ -13,7 +13,7 @@ def index():
 @app.route('/sendmail', methods=['POST'])
 def sendmail():
     sg = sendgrid.SendGridAPIClient(
-        api_key='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')
+        api_key='<here comes the key>')
     from_email = Email("bot@fedtech.ca")
     to_email = To("sales@fedtech.ca")
     subject = "New lead for Farm Market portal"
