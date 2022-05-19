@@ -13,8 +13,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function (event) {
-            document.getElementById('sendbtn').onclick = () => {
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+        function sendEmail() {
+            if (validateEmail($('#email').val())) {
                 $('#tyModal').modal('show');
                 var bodyFormData = new FormData();
                 bodyFormData.append('email', $('#email').val());
@@ -25,13 +31,27 @@
                     headers: { "Content-Type": "multipart/form-data" },
                 })
                     .then(function (response) {
-                        //handle success
                         console.log(response);
                     })
                     .catch(function (response) {
-                        //handle error
                         console.log(response);
                     });
+                $('#email').val('');
+                return flase;
+            }
+            else {
+                $('#pleaseModal').modal('show');
+                return false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+            document.getElementById('sendbtn').onclick = () => {
+                sendEmail();
+                return false;
+            }
+            document.getElementById('myForm').onsubmit = () => {
+                sendEmail();
                 return false;
             }
         });
@@ -131,6 +151,31 @@
                             <div class="col ms-auto">
                                 <img class="img-fluid rounded mx-auto d-block"
                                     src="{{ url_for('static', filename='img/ty.jpeg')}}" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pleaseModal" tabindex="-1" aria-labelledby="tyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Please enter a vaid email!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col ms-auto">
+                                <img class="img-fluid rounded mx-auto d-block"
+                                    src="{{ url_for('static', filename='img/please.jpeg')}}" alt="" srcset="">
                             </div>
                         </div>
                     </div>
