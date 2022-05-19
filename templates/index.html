@@ -11,11 +11,27 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function (event) {
             document.getElementById('sendbtn').onclick = () => {
                 $('#tyModal').modal('show');
-                $('#myForm').submit();
+                var bodyFormData = new FormData();
+                bodyFormData.append('email', $('#email').val());
+                axios({
+                    method: "post",
+                    url: "/sendmail",
+                    data: bodyFormData,
+                    headers: { "Content-Type": "multipart/form-data" },
+                })
+                    .then(function (response) {
+                        //handle success
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        //handle error
+                        console.log(response);
+                    });
                 return false;
             }
         });
@@ -90,8 +106,8 @@
                         <h1 class="text-center">To get early access and lifetime free serice volunteer for a pilot!</h5>
                             <div class="input-group flex-nowrap mt-3">
                                 <span class="input-group-text" id="addon-wrapping">@</span>
-                                <input type="email" class="form-control" placeholder="Email" aria-label="Email"
-                                    aria-describedby="addon-wrapping" name="email" required>
+                                <input id="email" type="email" class="form-control" placeholder="Email"
+                                    aria-label="Email" aria-describedby="addon-wrapping" name="email" required>
                                 <button type="button" class="btn btn-primary" id="sendbtn">Sign up</button>
                             </div>
                     </form>
