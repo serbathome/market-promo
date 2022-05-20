@@ -38,7 +38,7 @@
                         console.log(response);
                     });
                 $('#email').val('');
-                return flase;
+                return false;
             }
             else {
                 $('#pleaseModal').modal('show');
@@ -124,7 +124,7 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <form id="myForm" action="/sendmail" method="post">
-                        <h1 class="text-center">To get early access and lifetime free serice volunteer for a pilot!</h5>
+                        <h1 class="text-center">To get early access and lifetime free service volunteer for a pilot!</h5>
                             <div class="input-group flex-nowrap mt-3">
                                 <span class="input-group-text" id="addon-wrapping">@</span>
                                 <input id="email" type="email" class="form-control" placeholder="Email"
